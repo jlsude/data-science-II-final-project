@@ -15,7 +15,7 @@ const Preliminary= () => {
     const [trestbps, setTrestbps] = useState(0);
     const [cp, setCp] = useState(0);
 
-    const [highProbability, setHighProbability] = useState(false);
+    const [probabilitityMoreThan35, setProbabilitityMoreThan35] = useState(false);
     const [SVMDataProb, setSVMDataProb] = useState('');
 
     const genderSelection = ['Male', 'Female'];
@@ -41,7 +41,7 @@ const Preliminary= () => {
             gender: gender,
             trestbps: parseInt(trestbps),
             cp: parseInt(cp),
-            highProbability: highProbability
+            probabilitityMoreThan35: probabilitityMoreThan35
         }
 
         axios.post(`${proxy}/preliminary`, {
@@ -53,14 +53,14 @@ const Preliminary= () => {
 
         }).then((response) => {
             console.log(response.data.SVM_Model_Preliminary.SVM_probability);            
-            preliminaryData.highProbability = response.data.SVM_Model_Preliminary.SVM_probability > 0.35;
+            preliminaryData.probabilitityMoreThan35 = response.data.SVM_Model_Preliminary.SVM_probability > 0.35;
 
             if (response.data.SVM_Model_Preliminary.SVM_probability > 0.35) {
-                setHighProbability(true);
+                setProbabilitityMoreThan35(true);
                 console.log('Result: high probability');
 
             } else {
-                setHighProbability(false);
+                setProbabilitityMoreThan35(false);
                 console.log('Result: low probability');
             }
 
