@@ -1,7 +1,10 @@
-import styles from './Preliminary.module.css'
 import React from 'react';
-import {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+import styles from './Preliminary.module.css'
+import packageJson from '../../../package.json'
 
 
 const Preliminary= () => {
@@ -13,32 +16,65 @@ const Preliminary= () => {
     const [cp, setCp] = useState(0);
 
     const [highProbability, setHighProbability] = useState(false);
+    const [SVMDataProb, setSVMDataProb] = useState('');
 
     const genderSelection = ['Male', 'Female'];
     const chestPainSelection = [0, 1, 2, 3, 4];
     const historyRouter = useHistory(); 
+    const proxy = packageJson.proxy;
 
-    useEffect(() => {
-        console.log(`age: ${age}`);
-        console.log(`gender: ${gender}`)
-        console.log(`trestbps: ${trestbps}`)
-        console.log(`cp: ${cp}`)
-        console.log(`history: ${history}`)
-    }, [age, gender, trestbps, cp, history])
+    // useEffect(() => {
+    //     console.log(`age: ${age}`);
+    //     console.log(`gender: ${gender}`)
+    //     console.log(`trestbps: ${trestbps}`)
+    //     console.log(`cp: ${cp}`)
+    //     console.log(`history: ${history}`)
+
+    //     console.log(proxy)
+    // }, [age, gender, trestbps, cp, history])
 
     const calculate = () => {
+        
         const preliminaryData = {
             history: history,
             age: parseInt(age),
             gender: gender,
             trestbps: parseInt(trestbps),
-            cp: parseInt(cp)
-
+            cp: parseInt(cp),
+            highProbability: highProbability
         }
 
-        localStorage.setItem('preliminaryData', JSON.stringify(preliminaryData));
+        axios.post(`${proxy}/preliminary`, {
+            history: preliminaryData.history,
+            age: preliminaryData.age,
+            gender: preliminaryData.gender,
+            trestbps: preliminaryData.trestbps,
+            cp: preliminaryData.cp
+
+        }).then((response) => {
+            console.log(response.data.SVM_Model_Preliminary.SVM_probability);            
+            preliminaryData.highProbability = response.data.SVM_Model_Preliminary.SVM_probability > 0.35;
+
+            if (response.data.SVM_Model_Preliminary.SVM_probability > 0.35) {
+                setHighProbability(true);
+                console.log('Result: high probability');
+
+            } else {
+                setHighProbability(false);
+                console.log('Result: low probability');
+            }
+
+            localStorage.setItem('preliminaryData', JSON.stringify(preliminaryData));
+
+            console.log('Routing to the next page')
+            historyRouter.push('/follow_up');
+                
+        }).catch((error) => {
+            console.log(error);
+        })
         
     }
+
 
 
 
