@@ -41,7 +41,8 @@ const Preliminary= () => {
             gender: gender,
             trestbps: parseInt(trestbps),
             cp: parseInt(cp),
-            probabilitityMoreThan35: probabilitityMoreThan35
+            probabilitityMoreThan35: probabilitityMoreThan35,
+            probability: 0
         }
 
         axios.post(`${proxy}/preliminary`, {
@@ -54,7 +55,7 @@ const Preliminary= () => {
         }).then((response) => {
             console.log(response.data.SVM_Model_Preliminary.SVM_probability);            
             preliminaryData.probabilitityMoreThan35 = response.data.SVM_Model_Preliminary.SVM_probability > 0.35;
-
+            preliminaryData.probability = response.data.SVM_Model_Preliminary.SVM_probability;
             if (response.data.SVM_Model_Preliminary.SVM_probability > 0.35) {
                 setProbabilitityMoreThan35(true);
                 console.log('Result: high probability');
@@ -114,7 +115,7 @@ const Preliminary= () => {
                             <label className={styles.inputLabel}>Gender</label>
                             <select className={styles.inputDataDropdown}
                                 onChange={(e) => {
-                                    if (e.target.value == "male") {
+                                    if (e.target.value === "male") {
                                         setGender(1)
                                     } else {
                                         setGender(0)
@@ -151,13 +152,13 @@ const Preliminary= () => {
                             <div className={styles.radioButtons}>
                                 <div className={styles.radioButtonContainer}>
                                     <input type="radio" className={styles.radioButton} 
-                                        value={1} checked={history == 1} onChange={(e) => setHistory(1)}/>
+                                        value={1} checked={history === 1} onChange={(e) => setHistory(1)}/>
                                     <label className={styles.radioButtonLabel}>Yes</label>
                                 </div>
 
                                 <div className={styles.radioButtonContainer}>
                                     <input type="radio" className={styles.radioButton} 
-                                        value={0} checked={history == 0} onChange={(e) => setHistory(0)}/>
+                                        value={0} checked={history === 0} onChange={(e) => setHistory(0)}/>
                                     <label className={styles.radioButtonLabel}>No</label>
                                 </div>
                             </div>
