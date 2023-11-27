@@ -1,12 +1,135 @@
+import React, { useState, useEffect } from 'react';
+
+
 import styles from './FollowUp.module.css'
 
 
 
 
 const FollowUp= () => {
+
+    const [chol, setChol] = useState(0);
+    const [fbs, setFbs] = useState(0);
+    const [restecg, setRestecg] = useState(0);
+
+    const [thalach, setThalach] = useState(0);
+    const [thal, setThal] = useState(0);
+
+    const [probabilitityMoreThan35, setProbabilitityMoreThan35] = useState(false);
+    const [probability, setProbability] = useState(0);
+
+    useEffect(() => {
+        let preliminaryData = localStorage.getItem('preliminaryData' )
+        preliminaryData = JSON.parse(preliminaryData);
+
+    }, [])
+
+
+    const calculate = () => {
+        if (probabilitityMoreThan35) {
+            console.log('Probability more than 35')
+        } else {
+            console.log('Probability less than 35')
+        }
+    }
+
     return (
         <div className={styles.pageBody}>
-            <h1 className={styles.headLine}>Follow Up</h1>
+            <div className={styles.header}>
+                <div className={styles.headerLogo}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="0 0 512 512">
+                        <path fill="var(--ci-primary-color, #FFFFFF)" 
+                            d="M344,16H168V168H16V344H168V496H344V344H496V168H344ZM464,200V312H312V464H200V312H48V200H200V48H312V200Z" 
+                            
+                            />
+                    </svg>
+                </div>
+                <div className={styles.harmburgerMenu}>
+                    <div className={styles.harmburgerMenuLine} />
+                    <div className={styles.harmburgerMenuLine} />
+                    <div className={styles.harmburgerMenuLine} />
+                </div>
+            </div>
+            <h1 className={styles.headLine}>Follow up</h1>
+            <div className={styles.mainCardWindow}>
+                <div className={styles.preliminaryResultPanel}>
+                    
+                    <div className={styles.resultPanel}>
+                        <div className={styles.probabilityContainer}>
+                            <h1 className={styles.probabilityHeader}>{probability}%</h1>
+                        </div>
+                    </div>
+                    <div className={styles.additionalInformationPanel}>
+                        <div className={styles.paragraphContainer}>
+                            <p className={styles.paragraphStyle}>
+                                According to the SVM algorithm, based on the preliminary screening of the patient’s data 
+                                (age, history of heart attack, trestbps, chest pain level, gender), 
+                                the patient has a {probability}% chance of having cardiovascular disease.
+                            </p>
+
+                            {probabilitityMoreThan35 ? 
+                            (
+                                <p className={styles.paragraphStyle}>
+                                    We recommend acquiring additional information about the patient’s data, including Serum Cholestoral (chol), 
+                                    Fasting Blood Sugar (fbs), Resting Electrocardiographic results (restecg), Maximum heart rate (thalach), and thal.
+                                </p>
+                            ) : 
+                            (
+                                <p className={styles.paragraphStyle}>
+                                    We recommend acquiring additional information about the patient’s data, including Serum Cholestoral (chol), 
+                                    Fasting Blood Sugar (fbs), and Resting Electrocardiographic results (restecg).
+                                </p>
+                            )}
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div className={styles.followUpEntriesPanel}>
+                    <div className={styles.subheaderContainer}>
+                        <h2 className={styles.subheader}>Follow up Entries</h2>
+
+                    </div>
+                    <div className={styles.inputsContainer}>
+                        
+                        <div className={styles.inputContainer}>
+                            <label className={styles.inputLabel}>Serum Cholestoral (chol)</label>
+                            <input className={styles.inputData} value={chol} onChange={(e) => setChol(e.target.value)}/>
+                        </div>
+                        <div className={styles.inputContainer}>
+                            <label className={styles.inputLabel}>Fasting Blood Sugar (fbs)</label>
+                            <input className={styles.inputData}  value={fbs} onChange={(e) => setFbs(e.target.value)}/>
+                        </div>
+                        <div className={styles.inputContainer}>
+                            <label className={styles.inputLabel}>Resting Electrocardiographic results (restecg)</label>
+                            <input className={styles.inputData}  value={restecg} onChange={(e) => setRestecg(e.target.value)}/>
+                        </div>
+
+                        {probabilitityMoreThan35 && (
+                                <div className={styles.inputContainer}>
+                                    <label className={styles.inputLabel}>Maximum Heart Rate Achieved (thalach)</label>
+                                    <input className={styles.inputData}  value={thalach} onChange={(e) => setThalach(e.target.value)}/>
+                                </div>
+                        )}
+                        {probabilitityMoreThan35 && (
+                                <div className={styles.inputContainer}>
+                                    <label className={styles.inputLabel}>Thal</label>
+                                    <input className={styles.inputData}  value={thal} onChange={(e) => setThal(e.target.value)}/>
+                                </div>
+                        )} 
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <div className={styles.buttonContainer}>
+                <button className={styles.button} onClick={() => calculate()}>
+                    Calculate
+                </button>
+            </div>
 
         </div>
     );
