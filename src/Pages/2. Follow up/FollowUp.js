@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import styles from './FollowUp.module.css'
-
+import packageJson from '../../../package.json'
 
 
 
@@ -17,21 +18,135 @@ const FollowUp= () => {
 
     const [probabilitityMoreThan35, setProbabilitityMoreThan35] = useState(false);
     const [probability, setProbability] = useState(0);
+    const [preliminaryData, setPreliminaryData] = useState({});
+
+    const historyRouter = useHistory();
+    const proxy = packageJson.proxy;
 
     useEffect(() => {
         let preliminaryData = localStorage.getItem('preliminaryData' )
         preliminaryData = JSON.parse(preliminaryData);
-
+        setPreliminaryData(preliminaryData);
+        setProbability((preliminaryData.probability*100).toFixed(2))
+        setProbabilitityMoreThan35(preliminaryData.probabilitityMoreThan35)
     }, [])
 
 
     const calculate = () => {
         if (probabilitityMoreThan35) {
             console.log('Probability more than 35')
+            
+            axios.post(`${proxy}/more_35`, {
+                history: parseInt(preliminaryData.history),
+                age: parseInt(preliminaryData.age),
+                gender: parseInt(preliminaryData.gender),
+                trestbps: parseInt(preliminaryData.trestbps),
+                cp: parseInt(preliminaryData.cp),
+                chol: parseInt(chol),
+                fbs: parseInt(fbs),
+                restecg: parseInt(restecg),
+                thalach: parseInt(thalach),
+                thal: parseInt(thal)
+            }).then((response) => {
+
+                let finalResultData = response.data;
+                let finalInputData = {
+                    history: parseInt(preliminaryData.history),
+                    age: parseInt(preliminaryData.age),
+                    gender: parseInt(preliminaryData.gender),
+                    trestbps: parseInt(preliminaryData.trestbps),
+                    cp: parseInt(preliminaryData.cp),
+                    chol: parseInt(chol),
+                    fbs: parseInt(fbs),
+                    restecg: parseInt(restecg),
+                    thalach: parseInt(thalach),
+                    thal: parseInt(thal)
+                }
+
+                let finalProbability = (finalResultData.SVM_Model_more.SVM_probability*100).toFixed(2);
+                let probabilityDifference = (finalProbability - probability).toFixed(2);
+                
+                //if what you are thinking is right,
+                //where it is still considered high probability if the final probability is >= 80%
+                //even thought the probability difference is less than 10%
+                //set to (probabilityDifference >= 10 || finalProbability >= 80%)
+                // if (probabilityDifference >= 10) {
+                //     historyRouter.push('/high_probability');
+                // } else {
+                //     historyRouter.push('/low_probability');
+                // }
+
+                //[TEMPORARY] the real code is above ^ ^ ^ ^ ^ 
+                historyRouter.push('/high_probability')
+
+                finalResultData = JSON.stringify(finalResultData);
+                finalInputData = JSON.stringify(finalInputData);
+
+                localStorage.setItem('finalResultData', finalResultData);
+                localStorage.setItem('finalInputData', finalInputData);
+            }).catch((error) => {
+                console.log(error);
+            })
+
+
+
         } else {
             console.log('Probability less than 35')
+            axios.post(`${proxy}/less_35`, {
+                history: parseInt(preliminaryData.history),
+                age: parseInt(preliminaryData.age),
+                gender: parseInt(preliminaryData.gender),
+                trestbps: parseInt(preliminaryData.trestbps),
+                cp: parseInt(preliminaryData.cp),
+                chol: parseInt(chol),
+                fbs: parseInt(fbs),
+                restecg: parseInt(restecg)
+            }).then((response) => {
+
+                let finalResultData = response.data;
+                let finalInputData = {
+                    history: parseInt(preliminaryData.history),
+                    age: parseInt(preliminaryData.age),
+                    gender: parseInt(preliminaryData.gender),
+                    trestbps: parseInt(preliminaryData.trestbps),
+                    cp: parseInt(preliminaryData.cp),
+                    chol: parseInt(chol),
+                    fbs: parseInt(fbs),
+                    restecg: parseInt(restecg)
+                }
+
+                let finalProbability = (finalResultData.SVM_Model_less.SVM_probability*100).toFixed(2);
+                let probabilityDifference = (finalProbability - probability).toFixed(2);
+                
+                //if what you are thinking is right,
+                //where it is still considered high probability if the final probability is >= 80%
+                //even thought the probability difference is less than 10%
+                //set to (probabilityDifference >= 10 || finalProbability >= 80%)
+                if (probabilityDifference >= 10) {
+                    historyRouter.push('/high_probability');
+                } else {
+                    historyRouter.push('/low_probability');
+                }
+
+
+                finalResultData = JSON.stringify(finalResultData);
+                finalInputData = JSON.stringify(finalInputData);
+
+                localStorage.setItem('finalResultData', finalResultData);
+                localStorage.setItem('finalInputData', finalInputData);
+
+
+            }).catch((error) => {
+                console.log(error);
+            })
+
+
         }
+
+        
     }
+
+
 
     return (
         <div className={styles.pageBody}>
@@ -40,7 +155,6 @@ const FollowUp= () => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="0 0 512 512">
                         <path fill="var(--ci-primary-color, #FFFFFF)" 
                             d="M344,16H168V168H16V344H168V496H344V344H496V168H344ZM464,200V312H312V464H200V312H48V200H200V48H312V200Z" 
-                            
                             />
                     </svg>
                 </div>
@@ -66,27 +180,24 @@ const FollowUp= () => {
                                 (age, history of heart attack, trestbps, chest pain level, gender), 
                                 the patient has a {probability}% chance of having cardiovascular disease.
                             </p>
-
                             {probabilitityMoreThan35 ? 
                             (
                                 <p className={styles.paragraphStyle}>
                                     We recommend acquiring additional information about the patient’s data, including Serum Cholestoral (chol), 
-                                    Fasting Blood Sugar (fbs), Resting Electrocardiographic results (restecg), Maximum heart rate (thalach), and thal.
+                                    Fasting Blood Sugar (fbs), Resting Electrocardiographic results (restecg), Maximum heart rate (thalach), and thal for further analysis.
+
                                 </p>
                             ) : 
                             (
                                 <p className={styles.paragraphStyle}>
                                     We recommend acquiring additional information about the patient’s data, including Serum Cholestoral (chol), 
-                                    Fasting Blood Sugar (fbs), and Resting Electrocardiographic results (restecg).
+                                    Fasting Blood Sugar (fbs), and Resting Electrocardiographic results (restecg) for further analysis.
+
                                 </p>
                             )}
-                            
-                            
                         </div>
                     </div>
                 </div>
-
-
 
                 <div className={styles.followUpEntriesPanel}>
                     <div className={styles.subheaderContainer}>
@@ -94,7 +205,6 @@ const FollowUp= () => {
 
                     </div>
                     <div className={styles.inputsContainer}>
-                        
                         <div className={styles.inputContainer}>
                             <label className={styles.inputLabel}>Serum Cholestoral (chol)</label>
                             <input className={styles.inputData} value={chol} onChange={(e) => setChol(e.target.value)}/>
@@ -107,7 +217,6 @@ const FollowUp= () => {
                             <label className={styles.inputLabel}>Resting Electrocardiographic results (restecg)</label>
                             <input className={styles.inputData}  value={restecg} onChange={(e) => setRestecg(e.target.value)}/>
                         </div>
-
                         {probabilitityMoreThan35 && (
                                 <div className={styles.inputContainer}>
                                     <label className={styles.inputLabel}>Maximum Heart Rate Achieved (thalach)</label>
