@@ -214,18 +214,18 @@ const FollowUp= () => {
                             <input className={styles.inputData}  value={fbs} onChange={(e) => setFbs(e.target.value)}/>
                         </div>
                         <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>Resting Electrocardiographic results (restecg)</label>
+                            <label className={styles.inputLabel}>Resting Electrocardiographic (restecg)</label>
                             <input className={styles.inputData}  value={restecg} onChange={(e) => setRestecg(e.target.value)}/>
                         </div>
                         {probabilitityMoreThan35 && (
                                 <div className={styles.inputContainer}>
-                                    <label className={styles.inputLabel}>Maximum Heart Rate Achieved (thalach)</label>
+                                    <label className={styles.inputLabel}>Maximum Heart Rate (thalach)</label>
                                     <input className={styles.inputData}  value={thalach} onChange={(e) => setThalach(e.target.value)}/>
                                 </div>
                         )}
                         {probabilitityMoreThan35 && (
                                 <div className={styles.inputContainer}>
-                                    <label className={styles.inputLabel}>Thal</label>
+                                    <label className={styles.inputLabel}>Thalassemia</label>
                                     <input className={styles.inputData}  value={thal} onChange={(e) => setThal(e.target.value)}/>
                                 </div>
                         )} 
