@@ -1,13 +1,210 @@
-
 .pageBody {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: #15121C;
     min-height: 100vh;
 }
 
 .headLine {
     color: white;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+    margin: 1vw 5vw 0vw 5vw;
+    
+}
+
+.headerLogo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+}
+
+.harmburgerMenu{
+    width: 30px;
+    height: 30px;
+    margin-right: 50px;
+}
+
+.harmburgerMenuLine {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px;
+}
+
+.cardsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 85vw;
+    height: 70vh;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.patientDataWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0.25;
+    height: 100%;
+    background-color: #87CEEB;
+    border-radius: 20px 20px 20px 0px;
+}
+
+.reportWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    gap: 20px;
+}
+
+.headerReportWindow{
+    width: 100%;
+    flex: 0.1;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.dataVizWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    background-color: #322C42;
+    border-radius: 20px;
+}
+
+.footerReportWindow{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    flex: 0.4;
+
+}
+
+.finalProbabilityWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0.15;
+    height: 100%;
+    border-radius: 25px;
+    background-color: #EB0000;
+}
+
+.finalProbabilityHeader{
+    color: white;
+    font-size: 30px;
+}
+
+.recommendationWindow{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.paragraphStyle{
+    padding-inline: 20px;
+    text-align: justify;
+    text-indent: 2rem;
+    font-weight: 500;
+    color: white;
+}
+
+.dataVizHeader{
+    color: white;
+}
+
+.footerReportContent{
+    height: 100%;
+    flex: 1;
+    background-color: #322C42;
+    border-radius: 20px;
+}
+.patientDataHeaderContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 0.1;
+    border-bottom: 2px dashed #15121C;
+    margin-bottom: 20px;
+}
+.patientDataHeader{
+    color: #15121C;
+    font-size: 25px;
+    font-weight: 700;
+
+}
+.patientDataContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    flex: 1;
+    padding-inline: 10px;
+    
+
+}
+.patientDataElementContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    padding-inline: 10px;
+    padding-block: 5px;
+    
+}
+
+.patientDataElementHeader{
+    color: #15121C;
+    font-size: 15px;
+    font-weight: 700;
+    flex: 1;
+
+}
+
+.patientDataElementValue{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    background-color: #15121C;
+    flex: 0.2;
+    padding: 5px;
+    border-radius: 10px;
+
+}
+.printTicketContainer{
+    height: 100%;
+    flex: 0.2;
+    
+}
+
+.printTicketButton {
+    width: 100%;
+    height: 100%;
+    background-color: #322C42;
+    border-radius: 25px;
 }

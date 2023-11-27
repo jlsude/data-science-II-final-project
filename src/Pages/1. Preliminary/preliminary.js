@@ -11,7 +11,7 @@ const Preliminary= () => {
 
     const [history, setHistory] = useState(0);
     const [age, setAge] = useState(0);
-    const [gender, setGender] = useState(0);
+    const [gender, setGender] = useState(1);
     const [trestbps, setTrestbps] = useState(0);
     const [cp, setCp] = useState(0);
 
@@ -115,7 +115,7 @@ const Preliminary= () => {
                             <label className={styles.inputLabel}>Gender</label>
                             <select className={styles.inputDataDropdown}
                                 onChange={(e) => {
-                                    if (e.target.value === "male") {
+                                    if (e.target.value === "Male") {
                                         setGender(1)
                                     } else {
                                         setGender(0)
@@ -130,11 +130,11 @@ const Preliminary= () => {
                             </select>
                         </div>
                         <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>Resting Heart Rate</label>
+                            <label className={styles.inputLabel}>Resting Heart Rate <br/>(trestbps)</label>
                             <input className={styles.inputData}  value={trestbps} onChange={(e) => setTrestbps(e.target.value)}/>
                         </div>
                         <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>Chest Pain Level</label>
+                            <label className={styles.inputLabel}>Chest Pain Level <br/>(cp)</label>
                             <select className={styles.inputDataDropdown}
                                 onChange={(e) => setCp(e.target.value)}
                             >
