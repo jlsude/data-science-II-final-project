@@ -15,6 +15,20 @@ const HighProbability = () => {
 
     //SVM
     const [finalProbability, setFinalProbability] = useState(0)
+    const [SVMCM, setSVMCM] = useState([])
+    const [SVMPrediction, setSVMPrediction] = useState(0)
+    const [SVMAccuracy, setSVMAccuracy] = useState(0)
+
+    //LR
+    const [LRProbability, setLRProbability] = useState(0)
+    const [LRConfusionMatrix, setLRConfusionMatrix] = useState([])
+    const [LRAccuracy, setLRAccuracy] = useState(0)
+
+    //KNN
+    const [KNNProbability, setKNNProbability] = useState(0)
+    const [KNNConfusionMatrix, setKNNConfusionMatrix] = useState([])
+    const [KNNPrediction, setKNNPrediction] = useState(0)
+    const [KNNAccuracy, setKNNAccuracy] = useState(0)
 
     useEffect(() => {
 
@@ -32,8 +46,24 @@ const HighProbability = () => {
     useEffect(() => {
         if(finalResultData.SVM_Model_more){
             setFinalProbability((finalResultData.SVM_Model_more.SVM_probability*100).toFixed(2))
-            
+            setSVMCM(finalResultData.SVM_Model_more.SVM_confusion_matrix)
+            setSVMPrediction(finalResultData.SVM_Model_more.SVM_prediction)
+            setSVMAccuracy((finalResultData.SVM_Model_more.SVM_accuracy*100).toFixed(2))
         }
+
+        if(finalResultData.LR_Model_more){
+            setLRProbability((finalResultData.LR_Model_more.LR_probability*100).toFixed(2))
+            setLRConfusionMatrix(finalResultData.LR_Model_more.LR_confusion_matrix)
+            setLRAccuracy((finalResultData.LR_Model_more.LR_accuracy*100).toFixed(2))
+        }
+
+        if(finalResultData.KNN_Model_more){
+            setKNNProbability((finalResultData.KNN_Model_more.KNN_probability*100).toFixed(2))
+            setKNNConfusionMatrix(finalResultData.KNN_Model_more.KNN_confusion_matrix)
+            setKNNPrediction(finalResultData.KNN_Model_more.KNN_prediction)
+            setKNNAccuracy((finalResultData.KNN_Model_more.KNN_accuracy*100).toFixed(2))
+        }
+        
     }, [finalResultData])
 
 
@@ -58,7 +88,7 @@ const HighProbability = () => {
                     <div className={styles.harmburgerMenuLine} />
                 </div>
             </div>
-            <h1 className={styles.headLine}>Patient has a HIGH PROBABILITY of CVD</h1>
+            <h1 className={styles.headLine}>The Patient is at HIGH RISK of Cardiovascular Disease</h1>
             <div className={styles.cardsContainer}>
                 <div className={styles.patientDataWindow}>
                     <div className={styles.patientDataHeaderContainer}>
@@ -163,7 +193,12 @@ const HighProbability = () => {
                 <div className={styles.reportWindow}>
                     <div className={styles.headerReportWindow}>
                         <div className={styles.finalProbabilityWindow}>
-                            <h1 className={styles.finalProbabilityHeader}>{finalProbability}%</h1>
+                            <h5 className={styles.finalProbabilityHeader}>
+                                PROBABILITY
+                            </h5>
+                            <h1 className={styles.finalProbabilityHeaderValue}>
+                                {finalProbability}%
+                            </h1>
                         </div>
                         <div className={styles.recommendationWindow}>
                             <p className={styles.paragraphStyle}>
@@ -179,7 +214,166 @@ const HighProbability = () => {
                     </div>
                     <div className={styles.footerReportWindow}>
                         <div className={styles.footerReportContent}>
+                            <div className={styles.SVMSection}>
+                                <h5 className={styles.perfMetricsHeader}>
+                                    Performance Metrics
+                                </h5>
+                                <div className={styles.algoContainer}>
+                                    <h5 className={styles.algoHeaders}>
+                                        SVM
+                                    </h5>
+                                    <div className={styles.confusionMatrixContainer}>
+                                        <div className={styles.CMPlanes}>
+                                            <h5 className={styles.CMIntegers}>
+                                                {SVMCM.TN}
+                                            </h5>
+                                        </div>
+                                        <div className={styles.CMPlanes}>
+                                            <h5 className={styles.CMIntegers}>
+                                                {SVMCM.FP}
+                                            </h5>
+                                        </div>
+                                        <div className={styles.CMPlanes}>
+                                            <h5 className={styles.CMIntegers}>
+                                                {SVMCM.FN}
+                                            </h5>
+                                        </div>
+                                        <div className={styles.CMPlanes}>
+                                            <h5 className={styles.CMIntegers}>
+                                                {SVMCM.TP}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div className={styles.predAndAccContainer}>
+                                        <div className={styles.predictionContainer}>
+                                            <h5 className={styles.metrixHeader}>
+                                                Prediction
+                                            </h5>
+                                            <label className={styles.metrixLabelsPrediction}>
+                                                {SVMPrediction ? "Heart Attack" : "No Heart Attack"}
+                                            </label>
+                                        </div>
+                                        <div className={styles.accuracyContainer}>
+                                            <h5 className={styles.metrixHeader}>
+                                                Accuracy
+                                            </h5>
+                                            <label className={styles.metrixLabels}>
+                                                {SVMAccuracy}%
+                                            </label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div className={styles.LRSection}>
+                                <div className={styles.algoContainer}>
+                                        <h5 className={styles.algoHeaders}>
+                                            LR
+                                        </h5>
+                                        <div className={styles.confusionMatrixContainer}>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {LRConfusionMatrix.TN}
+                                                </h5>
+                                            </div>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {LRConfusionMatrix.FP}
+                                                </h5>
+                                            </div>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {LRConfusionMatrix.FN}
+                                                </h5>
+                                            </div>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {LRConfusionMatrix.TP}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div className={styles.predAndAccContainer}>
+                                            <div className={styles.predictionContainer}>
+                                                <h5 className={styles.metrixHeader}>
+                                                    Probability
+                                                </h5>
+                                                <label className={styles.metrixLabels}>
+                                                    {LRProbability}%
+                                                </label>
+                                            </div>
+                                            <div className={styles.accuracyContainer}>
+                                                <h5 className={styles.metrixHeader}>
+                                                    Accuracy
+                                                </h5>
+                                                <label className={styles.metrixLabels}>
+                                                    {LRAccuracy}%
+                                                </label>
+                                                
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
 
+                            <div className={styles.KNNSection}>
+                                <div className={styles.algoContainer}>
+                                        <h5 className={styles.algoHeaders}>
+                                            KNN
+                                        </h5>
+                                        <div className={styles.confusionMatrixContainer}>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {KNNConfusionMatrix.TN}
+                                                </h5>
+                                            </div>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {KNNConfusionMatrix.FP}
+                                                </h5>
+                                            </div>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {KNNConfusionMatrix.FN}
+                                                </h5>
+                                            </div>
+                                            <div className={styles.CMPlanes}>
+                                                <h5 className={styles.CMIntegers}>
+                                                    {KNNConfusionMatrix.TP}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div className={styles.predAndAccContainer}>
+                                            <div className={styles.predictionContainer}>
+                                                <h5 className={styles.metrixHeader}>
+                                                    Prediction
+                                                </h5>
+                                                <label className={styles.metrixLabelsPrediction}>
+                                                    {KNNPrediction ? "Heart Attack" : "No Heart Attack"}
+                                                </label>
+                                            </div>
+
+                                            <div className={styles.KNNAccuracyAndProbContainer}>
+                                                <div className={styles.KNNAccuraryContainer}>
+                                                    <h5 className={styles.KNNmetrixHeader}>
+                                                        Accuracy
+                                                    </h5>
+                                                    <label className={styles.KNNmetrixLabels}>
+                                                        {KNNAccuracy}%
+                                                    </label>
+                                                </div>
+                                                <div className={styles.KNNProbabilityContainer}>
+                                                <h5 className={styles.KNNmetrixHeader}>
+                                                        Probability
+                                                    </h5>
+                                                    <label className={styles.KNNmetrixLabels}>
+                                                        {KNNProbability}%
+                                                    </label>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={styles.printTicketContainer}>
                             <button className={styles.printTicketButton} />
