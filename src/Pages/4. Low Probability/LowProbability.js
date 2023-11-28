@@ -357,7 +357,14 @@ const LowProbability = () => {
                             </div>
                         </div>
                         <div className={styles.printTicketContainer}>
-                            <button className={styles.printTicketButton} />
+                        <button className={styles.printTicketButton} 
+                                onClick={() => {
+                                    window.open('/pdf')
+                                    localStorage.setItem('highProbability', false)
+                                }}
+                            >
+                                Print Ticket
+                            </button>
                         </div>
                     </div>
                 </div>

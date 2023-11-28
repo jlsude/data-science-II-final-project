@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-
+import React, { useState, useEffect, } from 'react';
 import styles from './HighProbability.module.css'
 
 
@@ -29,6 +27,7 @@ const HighProbability = () => {
     const [KNNConfusionMatrix, setKNNConfusionMatrix] = useState([])
     const [KNNPrediction, setKNNPrediction] = useState(0)
     const [KNNAccuracy, setKNNAccuracy] = useState(0)
+
 
     useEffect(() => {
 
@@ -376,7 +375,14 @@ const HighProbability = () => {
                             </div>
                         </div>
                         <div className={styles.printTicketContainer}>
-                            <button className={styles.printTicketButton} />
+                            <button className={styles.printTicketButton} 
+                                onClick={() => {
+                                    window.open('/pdf')
+                                    localStorage.setItem('highProbability', true)
+                                }}
+                            >
+                                Print Ticket
+                            </button>
                         </div>
                     </div>
                 </div>

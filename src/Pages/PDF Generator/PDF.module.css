@@ -1,0 +1,35 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 100vw;
+    min-height: 100vh;
+
+}
+
+.background{
+    position: absolute;
+    z-index: -1;
+    margin: 1px
+}
+
+.textEnvironment{
+    width: 1123px;
+    height: 790px;
+    z-index: 1;
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+}
+
+
+.frontDrop{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 100;
+    background-color: #15121C;
+}
+
+
