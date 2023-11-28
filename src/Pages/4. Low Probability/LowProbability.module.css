@@ -1,13 +1,389 @@
-
 .pageBody {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: #15121C;
     min-height: 100vh;
 }
 
 .headLine {
     color: white;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+    margin: 1vw 5vw 0vw 5vw;
+    
+}
+
+.headerLogo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+}
+
+.harmburgerMenu{
+    width: 30px;
+    height: 30px;
+    margin-right: 50px;
+}
+
+.harmburgerMenuLine {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px;
+}
+
+.cardsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 85vw;
+    height: 70vh;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.patientDataWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0.25;
+    height: 100%;
+    background-color: #87CEEB;
+    border-radius: 20px 20px 20px 0px;
+}
+
+.reportWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    gap: 20px;
+}
+
+.headerReportWindow{
+    width: 100%;
+    flex: 0.1;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.dataVizWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    background-color: #322C42;
+    border-radius: 20px;
+}
+
+.footerReportWindow{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    flex: 0.4;
+
+}
+
+.finalProbabilityWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0.15;
+    height: 100%;
+    border-radius: 25px;
+    background-color: #009925;
+}
+
+.finalProbabilityHeader{
+    color: white;
+    font-size: 12px;
+    margin: 0px;
+}
+
+.finalProbabilityHeaderValue{
+    color: white;
+    font-size: 30px;
+    margin-block: 5px;
+}
+
+
+
+.recommendationWindow{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.paragraphStyle{
+    padding-inline: 20px;
+    text-align: justify;
+    text-indent: 2rem;
+    font-weight: 500;
+    color: white;
+}
+
+.dataVizHeader{
+    color: white;
+}
+
+.footerReportContent{
+    height: 100%;
+    flex: 1;
+    background-color: #322C42;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.patientDataHeaderContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 0.1;
+    border-bottom: 2px dashed #15121C;
+    margin-bottom: 20px;
+}
+.patientDataHeader{
+    color: #15121C;
+    font-size: 25px;
+    font-weight: 700;
+
+}
+.patientDataContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    flex: 1;
+    padding-inline: 10px;
+    
+
+}
+.patientDataElementContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    padding-inline: 10px;
+    padding-block: 5px;
+    
+}
+
+.patientDataElementHeader{
+    color: #15121C;
+    font-size: 15px;
+    font-weight: 700;
+    flex: 1;
+
+}
+
+.patientDataElementValue{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    background-color: #15121C;
+    flex: 0.2;
+    padding: 5px;
+    border-radius: 10px;
+
+}
+.printTicketContainer{
+    height: 100%;
+    flex: 0.2;
+    
+}
+
+.printTicketButton {
+    width: 100%;
+    height: 100%;
+    background-color: #322C42;
+    border-radius: 25px;
+}
+
+.SVMSection{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex: 1;
+    margin-left: 3px;
+}
+
+.LRSection{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex: 1;
+}
+
+.KNNSection{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex: 1;
+}
+
+.perfMetricsHeader{
+    color: white;
+    margin-block: 2px;
+    margin-left: 15px;
+    position: absolute;
+}
+
+.algoContainer{
+    display: flex;
+    flex-direction: row;
+    margin: auto 0;
+}
+
+.algoHeaders{
+    color: white;
+    margin: 0px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin-inline: auto;
+    
+    /* 
+    margin-left: 15px; */
+    /* position: absolute; */
+}
+
+.confusionMatrixContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 0px;
+    gap: 1px ;
+}
+
+.CMPlanes{
+    height: 45%;
+    width: 45%;
+    background-color: #776b99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.CMIntegers{
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.predAndAccContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.predictionContainer, .accuracyContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5px;
+    flex: 1;
+    width: 90%;
+    
+}
+
+.KNNAccuracyAndProbContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5px;
+    flex: 1;
+    width: 90%;
+    gap: 2px;
+}
+
+
+
+.metrixHeader{
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0px;
+    
+}
+
+.metrixLabels{
+    color: white;
+    margin: auto 0;
+    font-size: 12px;    
+    font-weight: 500;
+    padding-block: 14px;
+    padding-inline: 20px;
+    border-radius: 8px;
+    background-color: #15121C;
+}
+
+.metrixLabelsPrediction{
+    color: white;
+    margin: auto 0;
+    font-size: 11px;    
+    font-weight: 500;
+    padding-block: 14px;
+    padding-inline: 8px;
+    border-radius: 8px;
+    background-color: #15121C;
+}
+
+.KNNAccuraryContainer, .KNNProbabilityContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+
+.KNNmetrixHeader{
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.KNNmetrixLabels{
+    color: white;
+    margin: auto 0;
+    text-align: center;
+    font-size: 12px;    
+    font-weight: 500;
+    padding-block: 5px;
+    padding-inline: 20px;
+    border-radius: 5px;
+    background-color: #15121C;
 }
