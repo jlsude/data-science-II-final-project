@@ -112,8 +112,17 @@
 
 .finalProbabilityHeader{
     color: white;
-    font-size: 30px;
+    font-size: 12px;
+    margin: 0px;
 }
+
+.finalProbabilityHeaderValue{
+    color: white;
+    font-size: 30px;
+    margin-block: 5px;
+}
+
+
 
 .recommendationWindow{
     display: flex;
@@ -139,6 +148,10 @@
     flex: 1;
     background-color: #322C42;
     border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 .patientDataHeaderContainer{
     display: flex;
@@ -207,4 +220,170 @@
     height: 100%;
     background-color: #322C42;
     border-radius: 25px;
+}
+
+.SVMSection{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex: 1;
+    margin-left: 3px;
+}
+
+.LRSection{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex: 1;
+}
+
+.KNNSection{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex: 1;
+}
+
+.perfMetricsHeader{
+    color: white;
+    margin-block: 2px;
+    margin-left: 15px;
+    position: absolute;
+}
+
+.algoContainer{
+    display: flex;
+    flex-direction: row;
+    margin: auto 0;
+}
+
+.algoHeaders{
+    color: white;
+    margin: 0px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin-inline: auto;
+    
+    /* 
+    margin-left: 15px; */
+    /* position: absolute; */
+}
+
+.confusionMatrixContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 0px;
+    gap: 1px ;
+}
+
+.CMPlanes{
+    height: 45%;
+    width: 45%;
+    background-color: #776b99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.CMIntegers{
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.predAndAccContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.predictionContainer, .accuracyContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5px;
+    flex: 1;
+    width: 90%;
+    
+}
+
+.KNNAccuracyAndProbContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5px;
+    flex: 1;
+    width: 90%;
+    gap: 2px;
+}
+
+
+
+.metrixHeader{
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0px;
+    
+}
+
+.metrixLabels{
+    color: white;
+    margin: auto 0;
+    font-size: 12px;    
+    font-weight: 500;
+    padding-block: 14px;
+    padding-inline: 20px;
+    border-radius: 8px;
+    background-color: #15121C;
+}
+
+.metrixLabelsPrediction{
+    color: white;
+    margin: auto 0;
+    font-size: 11px;    
+    font-weight: 500;
+    padding-block: 14px;
+    padding-inline: 8px;
+    border-radius: 8px;
+    background-color: #15121C;
+}
+
+.KNNAccuraryContainer, .KNNProbabilityContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+
+.KNNmetrixHeader{
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.KNNmetrixLabels{
+    color: white;
+    margin: auto 0;
+    text-align: center;
+    font-size: 12px;    
+    font-weight: 500;
+    padding-block: 5px;
+    padding-inline: 20px;
+    border-radius: 5px;
+    background-color: #15121C;
 }
