@@ -16,32 +16,35 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    min-width: 100%;
-    margin: 1vw 5vw 0vw 5vw;
+    min-width: 90%;
+    padding-inline: 50px;
+    margin: 10px 5vw 0vw 5vw;
     
 }
 
-.headerLogo {
+.headerLogoContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.headerLogo {
+    
+    width: 50%;
+    height: 50%;
+}
+
+
+.homeContainer{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: 3%;
+    height: 3%;
+    padding: 10px;
+    border-radius: 50%;
 }
 
-.harmburgerMenu{
-    width: 30px;
-    height: 30px;
-    margin-right: 50px;
-}
-
-.harmburgerMenuLine {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    margin: 5px;
-}
 
 .mainCardWindow{
     display: flex;
@@ -61,6 +64,13 @@
     align-items: center;
     justify-content: center;
     min-width: 380px;
+}
+
+.pictureDoctor{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    float: right;
 }
 
 .preliminaryEntriesPanel{
@@ -90,12 +100,12 @@
     width: 150px;
 }
 
-button:hover {
+button:hover, .homeContainer:hover {
     background-color: #3d384d;
     cursor: pointer;
 }
 
-button:active {
+button:active{
     background-color: #322C42;
 }
 

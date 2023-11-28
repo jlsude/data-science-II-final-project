@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
-
+import { useHistory } from 'react-router-dom'
+import BannerLogo from '../../assets/BannerLogo.png'
+import Home from '../../assets/Home.png'
 import styles from './LowProbability.module.css'
 
 
@@ -29,6 +30,8 @@ const LowProbability = () => {
     const [KNNConfusionMatrix, setKNNConfusionMatrix] = useState([])
     const [KNNPrediction, setKNNPrediction] = useState(0)
     const [KNNAccuracy, setKNNAccuracy] = useState(0)
+
+    const history = useHistory()
 
     useEffect(() => {
 
@@ -74,17 +77,16 @@ const LowProbability = () => {
     return (
         <div className={styles.pageBody}>
             <div className={styles.header}>
-                <div className={styles.headerLogo}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="0 0 512 512">
-                        <path fill="var(--ci-primary-color, #FFFFFF)" 
-                            d="M344,16H168V168H16V344H168V496H344V344H496V168H344ZM464,200V312H312V464H200V312H48V200H200V48H312V200Z" 
-                            />
-                    </svg>
+            <div className={styles.headerLogoContainer}>
+                    
+                    <img src={BannerLogo} alt="Medical Star Symbol" className={styles.headerLogo}/>
+                    
                 </div>
-                <div className={styles.harmburgerMenu}>
-                    <div className={styles.harmburgerMenuLine} />
-                    <div className={styles.harmburgerMenuLine} />
-                    <div className={styles.harmburgerMenuLine} />
+                <div className={styles.homeContainer} onClick={() => {
+                    history.push('/')
+                }}>
+                    <img src={Home} alt="Home" />
+
                 </div>
             </div>
             <h1 className={styles.headLine}>The Patient is at LOW RISK of Cardiovascular Disease</h1>

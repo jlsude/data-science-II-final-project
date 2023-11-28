@@ -5,6 +5,9 @@ import axios from 'axios';
 
 import styles from './Preliminary.module.css'
 import packageJson from '../../../package.json'
+import BannerLogo from '../../assets/BannerLogo.png'
+import Home from '../../assets/Home.png'
+import ECGmonitor from '../../assets/ECG-monitor.png'
 
 
 const Preliminary= () => {
@@ -82,24 +85,19 @@ const Preliminary= () => {
     return (
         <div className={styles.pageBody}>
             <div className={styles.header}>
-                <div className={styles.headerLogo}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="0 0 512 512">
-                        <path fill="var(--ci-primary-color, #FFFFFF)" 
-                            d="M344,16H168V168H16V344H168V496H344V344H496V168H344ZM464,200V312H312V464H200V312H48V200H200V48H312V200Z" 
-                            //class="ci-primary"
-                            />
-                    </svg>
+                <div className={styles.headerLogoContainer}>
+                    
+                    <img src={BannerLogo} alt="Medical Star Symbol" className={styles.headerLogo}/>
+                    
                 </div>
-                <div className={styles.harmburgerMenu}>
-                    <div className={styles.harmburgerMenuLine} />
-                    <div className={styles.harmburgerMenuLine} />
-                    <div className={styles.harmburgerMenuLine} />
+                <div className={styles.homeContainer} >
+                    <img src={Home} alt="Home" />
                 </div>
             </div>
-            <h1 className={styles.headLine}>Preliminary Screening</h1>
+            <h1 className={styles.headLine}>Heart Attack Prediction: Preliminary Screening</h1>
             <div className={styles.mainCardWindow}>
                 <div className={styles.doctorPicturePanel}>
-                    Picture of a doctor here
+                    <img src={ECGmonitor} alt='Helt' className={styles.pictureDoctor}/>
                 </div>
                 <div className={styles.preliminaryEntriesPanel}>
                     <div className={styles.subheaderContainer}>
