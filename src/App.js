@@ -6,6 +6,7 @@ import Preliminary from './Pages/1. Preliminary/preliminary';
 import FollowUp from './Pages/2. Follow up/FollowUp';
 import HighProbability from './Pages/3. High Probability/HighProbability';
 import LowProbability from './Pages/4. Low Probability/LowProbability';
+import PDF from './Pages/PDF Generator/PDF';
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
 
         <Route path ="/low_probability">
           <LowProbability />
+        </Route>
+
+        <Route path ="/pdf">
+          <PDF />
         </Route>
 
       </Switch>
