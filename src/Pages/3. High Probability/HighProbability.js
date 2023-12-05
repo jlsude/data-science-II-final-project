@@ -2,6 +2,8 @@ import React, { useState, useEffect, } from 'react';
 import styles from './HighProbability.module.css'
 import BannerLogo from '../../assets/BannerLogo.png'
 import Home from '../../assets/Home.png'
+import axios from 'axios'
+import packageJson from '../../../package.json'
 import { useHistory } from 'react-router-dom';
 
 
@@ -31,6 +33,10 @@ const HighProbability = () => {
     const [KNNPrediction, setKNNPrediction] = useState(0)
     const [KNNAccuracy, setKNNAccuracy] = useState(0)
 
+    const [isLoading, setIsLoading] = useState(true)
+    const [imageSrc, setImageSrc] = useState('')
+
+    const proxy = packageJson.proxy
     const history = useHistory()
 
     useEffect(() => {
@@ -44,6 +50,29 @@ const HighProbability = () => {
         
 
     }, [])
+
+    useEffect(() => {
+        const fetchDataVisualization = async () => {
+            try {
+                const response = await axios.get(`${proxy}/dataviz_svm_more`, {
+                    responseType: 'arraybuffer',
+                });
+        
+                const arrayBufferView = new Uint8Array(response.data);
+                const blob = new Blob([arrayBufferView], { type: 'image/png' });
+                const imageUrl = URL.createObjectURL(blob);
+        
+                setImageSrc(imageUrl);
+                setIsLoading(false);
+                console.log(imageUrl)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+      
+        fetchDataVisualization();
+    }, []);
+      
 
 
     useEffect(() => {
@@ -209,6 +238,15 @@ const HighProbability = () => {
                         <h3 className={styles.dataVizHeader}>
                             Data Visualization
                         </h3>
+                        <div className={styles.dataVizContainer}>
+                            {isLoading ? 
+                                <label className={styles.loadingIndicator}>
+                                    Fetching Data Visualization...
+                                </label> 
+                            : (
+                                <img src={imageSrc} alt="Data Visualization" className={styles.dataVizImage}/>
+                            )}
+                        </div>
                     </div>
                     <div className={styles.footerReportWindow}>
                         <div className={styles.footerReportContent}>
