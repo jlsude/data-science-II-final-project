@@ -26,6 +26,7 @@ const Preliminary= () => {
     const historyRouter = useHistory(); 
     const proxy = packageJson.proxy;
 
+
     // useEffect(() => {
     //     console.log(`age: ${age}`);
     //     console.log(`gender: ${gender}`)
@@ -79,9 +80,66 @@ const Preliminary= () => {
         
     }
 
+    const [timeElapsed, setTimeElapsed] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isServerActivated, setIsServerActivated] = useState(false);
+    let timeoutRef;
+    
+    const allowedTime = 840000;
 
+    const activateServer = () => {
+        setIsLoading(true);
+        axios.get(`${proxy}/activate`).then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                setIsServerActivated(true);
 
+                setTimeElapsed(Date.now());
+                localStorage.setItem('timeElapsed', Date.now());
+            
+                serverTimeoutTimer();
+            } else {
+                alert('Server failed to activate');
+                setIsServerActivated(false);
+            }
+            setIsLoading(false);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 
+    const serverTimeoutTimer = () => {
+        clearTimeout(timeoutRef);
+    
+        timeoutRef = setTimeout(() => {
+            setIsServerActivated(false);
+            console.log('Server deactivated');
+        }, allowedTime);
+    };
+
+    const lastActivityChecker = () => {
+        const lastAct = localStorage.getItem('timeElapsed');
+        if (lastAct !== 0) {
+            if (Date.now() - lastAct > allowedTime) {
+                setIsServerActivated(false);
+                return false;
+            } else {
+                setIsServerActivated(true)
+                return true;
+            }
+        }
+
+    }
+
+    useEffect(() => {
+        console.log(`timeElapsed: ${timeElapsed}`);
+        
+    }, [timeElapsed])
+
+    useEffect(() => {
+        lastActivityChecker();
+    }, [])
+    
     return (
         <div className={styles.pageBody}>
             <div className={styles.header}>
@@ -90,11 +148,18 @@ const Preliminary= () => {
                     <img src={BannerLogo} alt="Medical Star Symbol" className={styles.headerLogo}/>
                     
                 </div>
-                <div className={styles.homeContainer} >
-                    <img src={Home} alt="Home" />
+                <div className={styles.headerContainer}>
+                    <div className={styles.homeContainer} >
+                        <img src={Home} alt="Home" />
+                    </div>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.activateServerButton} disabled={isServerActivated} onClick={() => activateServer()}>
+                            {isLoading ? 'Activating...' : isServerActivated ? 'Server Activated' : 'Activate Server'}
+                        </button>
+                    </div>
                 </div>
             </div>
-            <h1 className={styles.headLine}>Heart Attack Prediction: Preliminary Screening</h1>
+            <h1 className={styles.headLine}>Heart Attack Prediction: Preliminary Screening Demo</h1>
             <div className={styles.mainCardWindow}>
                 <div className={styles.doctorPicturePanel}>
                     <img src={ECGmonitor} alt='Helt' className={styles.pictureDoctor}/>
@@ -165,8 +230,8 @@ const Preliminary= () => {
                 </div>
             </div>
             <div className={styles.buttonContainer}>
-                <button className={styles.button} onClick={() => calculate()}>
-                    Calculate
+                <button className={styles.button} disabled={!isServerActivated} onClick={() => calculate()}>
+                    {isServerActivated ? 'Calculate' : 'Server Deactivated'}
                 </button>
             </div>
 

@@ -24,6 +24,29 @@ const FollowUp= () => {
 
     const historyRouter = useHistory();
     const proxy = packageJson.proxy;
+    const allowedTime = 840000;
+
+    const lastActivityChecker = () => {
+        const lastAct = localStorage.getItem('timeElapsed');
+        
+        if (lastAct !== 0) {
+            const timeElapsed = Date.now() - lastAct;
+            const remainingTime = allowedTime - timeElapsed;
+    
+            console.log("timeElapsed: ", timeElapsed);
+            console.log("remainingTime: ", remainingTime);
+            
+            if (timeElapsed > allowedTime) {
+                alert('Server has been deactivated due to inactivity. Redirecting to home page...');
+                historyRouter.push('/');
+            } else {
+                setTimeout(() => {
+                    alert('Server has been deactivated due to inactivity. Redirecting to home page...');
+                    historyRouter.push('/');
+                }, remainingTime);
+            }
+        }
+    };
 
     useEffect(() => {
         let preliminaryData = localStorage.getItem('preliminaryData' )
@@ -31,6 +54,8 @@ const FollowUp= () => {
         setPreliminaryData(preliminaryData);
         setProbability((preliminaryData.probability*100).toFixed(2))
         setProbabilitityMoreThan35(preliminaryData.probabilitityMoreThan35)
+
+        lastActivityChecker();
     }, [])
 
 
