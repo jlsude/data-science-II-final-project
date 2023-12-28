@@ -153,7 +153,8 @@ const Preliminary= () => {
                         <img src={Home} alt="Home" />
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button className={styles.activateServerButton} disabled={isServerActivated} onClick={() => activateServer()}>
+                        <button className={styles.activateServerButton} disabled={isServerActivated || isLoading} 
+                            onClick={() => activateServer()}>
                             {isLoading ? 'Activating...' : isServerActivated ? 'Server Activated' : 'Activate Server'}
                         </button>
                     </div>
