@@ -1,5 +1,24 @@
 {
   "projects": {
-    "default": "data-science-ii-final-project"
-  }
+    "default": "portfolio-website-2ea6c"
+  },
+  "targets": {
+    "portfolio-website-2ea6c": {
+      "hosting": {
+        "jlsude": [
+          "jlsude"
+        ],
+        "johnlouiesude": [
+          "johnlouiesude"
+        ],
+        "heart-attack-analysis": [
+          "heart-attack-analysis"
+        ],
+        "smoker-or-not": [
+          "smoker-or-not"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
